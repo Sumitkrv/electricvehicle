@@ -257,7 +257,7 @@ const Header = () => {
                     className={`relative group px-5 py-2.5 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 flex items-center space-x-2 ${
                       isActive 
                         ? 'text-white bg-gradient-to-r from-primary to-accent' 
-                        : 'text-white hover:text-accent hover:bg-white/10'
+                        : 'text-gray-300 hover:text-white hover:bg-white/5'
                     }`}
                   >
                     <span className="relative z-10">
@@ -271,7 +271,7 @@ const Header = () => {
                     {!isActive && hoveredLink === link.name && (
                       <motion.div
                         layoutId="navHover"
-                        className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl"
+                        className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl border border-primary/20"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}

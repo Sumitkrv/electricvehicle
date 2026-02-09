@@ -17,21 +17,17 @@ const Footer = () => {
   }
 
   const footerLinks = {
-    Models: [
-      { name: 'Urban Rider', path: '/product/urban-rider' },
-      { name: 'City Cruiser', path: '/product/city-cruiser' },
-      { name: 'Highway Master', path: '/product/highway-master' },
-    ],
     Company: [
       { name: 'About Us', path: '/about' },
-      { name: 'Careers', path: '/careers' },
-      { name: 'Sustainability', path: '/sustainability' },
-      { name: 'Press', path: '/press' },
+      { name: 'Contact', path: '/contact' },
     ],
-    Support: [
-      { name: 'Contact Us', path: '/contact' },
-      { name: 'Dealers', path: '/dealers' },
-      { name: 'Service Centers', path: '/service' },
+    Explore: [
+      { name: 'Features', path: '#' },
+      { name: 'Configurator', path: '#' },
+    ],
+    Resources: [
+      { name: 'Dealers', path: '#' },
+      { name: 'Home', path: '#' },
     ],
   }
 
@@ -101,14 +97,11 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-1">
             <div className="mb-8">
-              <div className="flex flex-col">
-                <span className="font-display font-black text-xl leading-tight tracking-tight">
-                  CONSIDER DONE
-                </span>
-                <span className="font-display font-bold text-xs leading-tight tracking-widest text-white/60">
-                  EV POWERED
-                </span>
-              </div>
+              <img 
+                src="/images/CD EV logo.svg" 
+                alt="Consider Done EV" 
+                className="h-10 w-auto"
+              />
             </div>
             <p className="text-white/50 mb-10 font-light text-sm leading-relaxed">
               Leading the future of electric mobility with premium, sustainable vehicles.
@@ -139,12 +132,18 @@ const Footer = () => {
               <ul className="space-y-4">
                 {links.map((link) => (
                   <li key={link.name}>
-                    <Link
-                      to={link.path}
-                      className="text-white/70 hover:text-white transition-colors font-light text-sm group flex items-center"
-                    >
-                      <span>{link.name}</span>
-                    </Link>
+                    {link.path === '#' ? (
+                      <span className="text-white/70 font-light text-sm cursor-default">
+                        {link.name}
+                      </span>
+                    ) : (
+                      <Link
+                        to={link.path}
+                        className="text-white/70 hover:text-white transition-colors font-light text-sm group flex items-center"
+                      >
+                        <span>{link.name}</span>
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

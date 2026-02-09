@@ -276,19 +276,28 @@ const ContactPage = () => {
               className="text-center"
             >
               <h2 className="font-light text-4xl md:text-5xl tracking-tight mb-6 text-gray-900">
-                Quick Answers
+                Need More Information?
               </h2>
               <div className="w-16 h-px bg-black/20 mx-auto mb-8" />
               <p className="text-gray-600 font-light text-lg mb-12 leading-relaxed max-w-2xl mx-auto">
-                Looking for immediate answers? Check out our FAQ section
+                Explore our comprehensive resources and discover what makes our electric vehicles stand out
               </p>
-              <a
-                href="/#faq"
-                className="inline-flex items-center space-x-3 px-8 py-3 border border-gray-200 text-gray-900 hover:border-gray-400 transition-colors duration-300 group"
-              >
-                <span className="font-light">View FAQs</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1} />
-              </a>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href="/#features"
+                  className="inline-flex items-center space-x-3 px-8 py-3 border border-gray-200 text-gray-900 hover:border-gray-400 transition-colors duration-300 group"
+                >
+                  <span className="font-light">View Features</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1} />
+                </a>
+                <a
+                  href="/#products"
+                  className="inline-flex items-center space-x-3 px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 transition-colors duration-300 group"
+                >
+                  <span className="font-light">Explore Models</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1} />
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>

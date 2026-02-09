@@ -334,7 +334,7 @@ const ProductShowcase = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
-              to="/configurator"
+              to="/contact"
               className="group relative inline-block"
             >
               <motion.div

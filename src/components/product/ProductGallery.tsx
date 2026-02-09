@@ -2,31 +2,15 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-mo
 import { useState, useEffect, useRef } from 'react'
 
 const ProductGallery = () => {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [imageLoaded, setImageLoaded] = useState<{[key: number]: boolean}>({})
   const constraintsRef = useRef(null)
-
-  // Debug selectedImage state
-  console.log('ProductGallery render - selectedImage:', selectedImage)
 
   const galleryImages = [
     { src: '/images/CD_EV15783.jpg', title: 'Aerodynamic Excellence', category: 'Design', color: 'from-blue-500/20 to-cyan-500/20' },
     { src: '/images/CD_EV15757.jpg', title: 'Intelligent Dashboard', category: 'Technology', color: 'from-purple-500/20 to-pink-500/20' },
     { src: '/images/CD_EV15705.jpg', title: 'Dynamic Performance', category: 'Power', color: 'from-orange-500/20 to-red-500/20' },
   ]
-
-  const nextImage = () => {
-    if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % galleryImages.length)
-    }
-  }
-
-  const prevImage = () => {
-    if (selectedImage !== null) {
-      setSelectedImage((selectedImage - 1 + galleryImages.length) % galleryImages.length)
-    }
-  }
 
   // Preload all images immediately
   useEffect(() => {
@@ -36,29 +20,6 @@ const ProductGallery = () => {
       img.src = image.src
     })
   }, [])
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedImage === null) return
-      if (e.key === 'ArrowRight') nextImage()
-      if (e.key === 'ArrowLeft') prevImage()
-      if (e.key === 'Escape') setSelectedImage(null)
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedImage])
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (selectedImage !== null) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [selectedImage])
 
   return (
     <section id="gallery" className="relative py-32 bg-white overflow-hidden">
@@ -140,15 +101,9 @@ const ProductGallery = () => {
                 duration: 0.6,
                 ease: [0.22, 1, 0.36, 1]
               }}
-              className="relative group cursor-pointer"
+              className="relative group"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Image clicked:', index);
-                setSelectedImage(index);
-              }}
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100">
                 {/* Gradient Glow */}
@@ -214,23 +169,6 @@ const ProductGallery = () => {
                     </div>
                   </motion.div>
 
-                  {/* Expand Icon */}
-                  <motion.div
-                    className="absolute top-4 right-4 z-10"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{
-                      opacity: hoveredIndex === index ? 1 : 0,
-                      scale: hoveredIndex === index ? 1 : 0.8,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="p-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-                      </svg>
-                    </div>
-                  </motion.div>
-
                   {/* Title Overlay */}
                   <motion.div
                     className="absolute inset-x-0 bottom-0 p-6"
@@ -241,15 +179,9 @@ const ProductGallery = () => {
                     }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <h3 className="text-xl font-light text-white mb-2 tracking-tight">
+                    <h3 className="text-xl font-light text-white tracking-tight">
                       {image.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-white/70">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-                      </svg>
-                      <span className="text-sm font-light">Click to expand</span>
-                    </div>
                   </motion.div>
 
                   {/* Border Accent on Hover */}
@@ -330,102 +262,6 @@ const ProductGallery = () => {
         </motion.div>
       </div>
 
-      {/* Premium Fullscreen Modal */}
-      {selectedImage !== null && (
-        <div
-          className="fixed inset-0 bg-black/98 backdrop-blur-2xl z-[99999] flex items-center justify-center"
-          onClick={() => setSelectedImage(null)}
-          style={{ zIndex: 99999 }}
-        >
-          {/* Close Button */}
-          <button
-            className="absolute top-6 right-6 p-4 bg-white/5 hover:bg-white/10 rounded-full backdrop-blur-xl transition-all duration-300 border border-white/10 z-20"
-            onClick={() => setSelectedImage(null)}
-          >
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          {/* Image Counter */}
-          <div className="absolute top-6 left-6 px-6 py-3 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 z-20">
-            <span className="text-white font-light text-sm tracking-wider">
-              <span className="font-medium">{selectedImage + 1}</span>
-              <span className="text-white/50 mx-2">/</span>
-              <span className="text-white/70">{galleryImages.length}</span>
-            </span>
-          </div>
-
-          {/* Navigation Buttons */}
-          <button
-            className="absolute left-6 p-4 bg-white/5 hover:bg-white/10 rounded-full backdrop-blur-xl transition-all duration-300 border border-white/10 z-20"
-            onClick={(e) => { e.stopPropagation(); prevImage(); }}
-          >
-            <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-          </button>
-
-          <button
-            className="absolute right-6 p-4 bg-white/5 hover:bg-white/10 rounded-full backdrop-blur-xl transition-all duration-300 border border-white/10 z-20"
-            onClick={(e) => { e.stopPropagation(); nextImage(); }}
-          >
-            <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-
-          {/* Image Container */}
-          <div
-            className="max-w-7xl max-h-[80vh] w-full px-20 relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative rounded-2xl overflow-hidden">
-              <img
-                src={galleryImages[selectedImage].src}
-                alt={galleryImages[selectedImage].title}
-                className="w-full h-full object-contain"
-                style={{ maxHeight: '80vh' }}
-                loading="eager"
-                decoding="async"
-              />
-              
-              {/* Info Overlay */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/95 to-transparent p-8 rounded-b-2xl">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className={`px-4 py-1.5 bg-gradient-to-r ${galleryImages[selectedImage].color} backdrop-blur-sm border border-white/20 rounded-full`}>
-                    <span className="text-white text-xs font-medium tracking-wider uppercase">
-                      {galleryImages[selectedImage].category}
-                    </span>
-                  </div>
-                  <div className="h-1 w-1 bg-white/30 rounded-full" />
-                  <span className="text-white/60 text-sm font-light">Premium Quality</span>
-                </div>
-                <h3 className="text-3xl md:text-4xl font-light text-white mb-2 tracking-tight">
-                  {galleryImages[selectedImage].title}
-                </h3>
-                <p className="text-white/60 text-sm font-light">
-                  Captured in stunning detail • Professional grade imagery
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Keyboard Shortcuts */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-6 px-8 py-4 bg-white/5 backdrop-blur-xl rounded-full border border-white/10">
-            <div className="flex items-center gap-2.5">
-              <kbd className="px-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-xs text-white font-mono">←</kbd>
-              <kbd className="px-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-xs text-white font-mono">→</kbd>
-              <span className="text-white/60 text-xs font-light">Navigate</span>
-            </div>
-            <div className="w-px h-5 bg-white/10" />
-            <div className="flex items-center gap-2.5">
-              <kbd className="px-3 py-1.5 bg-white/10 border border-white/20 rounded-lg text-xs text-white font-mono">ESC</kbd>
-              <span className="text-white/60 text-xs font-light">Close</span>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }
