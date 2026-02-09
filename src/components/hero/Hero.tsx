@@ -15,14 +15,8 @@ const heroImages = [
   '/images/ChatGPT Image Nov 27, 2025, 05_26_27 PM.png',
 ]
 
-// Mobile-specific images
-const mobileHeroImages = [
-  '/images/hero/ev mob 1.png',
-  '/images/hero/ev mob 2.png',
-  '/images/hero/ev mob 3.png',
-  '/images/hero/ev mob 4.png',
-  '/images/hero/ev mob 5.png',
-]
+// Mobile-specific images (fallback to public images to avoid missing assets)
+const mobileHeroImages = heroImages
 
 const productInfo = [
   {
