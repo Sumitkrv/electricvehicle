@@ -100,7 +100,7 @@
   
   @media (min-width: 1024px) {
     .page-content .container-custom {
-      margin-left: calc(50% - 700px + 6rem);
+      margin-left: auto;
       margin-right: auto;
     }
   }

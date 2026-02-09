@@ -73,7 +73,7 @@ const ContactPage = () => {
         <section className="py-32 bg-white relative">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:100px_100px]" />
           
-          <div className="relative container-custom">
+          <div className="relative container-custom px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -129,7 +129,7 @@ const ContactPage = () => {
 
         {/* Contact Form */}
         <section className="py-32 bg-black relative">
-          <div className="relative container-custom">
+          <div className="relative container-custom px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -267,7 +267,7 @@ const ContactPage = () => {
         <section className="py-32 bg-white relative">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:100px_100px]" />
           
-          <div className="relative container-custom">
+          <div className="relative container-custom px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
